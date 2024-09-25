@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.bignerdranch.android.criminalintent.databinding.FragmentCrimeDetailBinding
 import java.util.Date
 import java.util.UUID
-
 class CrimeDetailFragment : Fragment() {
 
 
@@ -43,14 +42,14 @@ class CrimeDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply{
             crimeTitle.doOnTextChanged{
-                text,_,_,_ -> crime = crime.copy(title = text.toString())
+                    text,_,_,_ -> crime = crime.copy(title = text.toString())
             }
             crimeDate.apply{
                 text = crime.date.toString()
                 isEnabled = false
             }
             crimeSolved.setOnCheckedChangeListener{
-                _, isChecked -> crime = crime.copy(isSolved = isChecked)
+                    _, isChecked -> crime = crime.copy(isSolved = isChecked)
             }
         }
     }

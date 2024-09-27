@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.criminalintent.databinding.ListItemCrimeBinding
+import java.util.UUID
 
 class CrimeHolder(
     private val binding: ListItemCrimeBinding
 ) : RecyclerView.ViewHolder(binding.root){
-    fun bind(crime: Crime){
+    fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit){
         binding.crimeTitle.text = crime.title
         binding.crimeDate.text = crime.date.toString()
 
@@ -20,6 +21,7 @@ class CrimeHolder(
                 "${crime.title} clicked!",
                 Toast.LENGTH_SHORT
             ).show()
+            onCrimeClicked(crime.id)
         }
         binding.crimeSolved.visibility = if(crime.isSolved){
             View.VISIBLE
@@ -30,7 +32,8 @@ class CrimeHolder(
 
 }
 class CrimeListAdapter(
-    private val crimes: List<Crime>
+    private val crimes: List<Crime>,
+    private val onCrimeClicked: (crimeId:UUID) -> Unit
 ) : RecyclerView.Adapter<CrimeHolder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -43,7 +46,7 @@ class CrimeListAdapter(
 
     override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
         val crime = crimes[position]
-        holder.bind(crime)
+        holder.bind(crime, onCrimeClicked)
     }
 
     override fun getItemCount() = crimes.size

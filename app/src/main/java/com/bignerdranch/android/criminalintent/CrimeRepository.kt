@@ -20,7 +20,6 @@ class CrimeRepository private constructor(context: Context, private val coroutin
             CrimeDatabase::class.java,
             DATABASE_NAME
         )
-       .createFromAsset(DATABASE_NAME)
         .build()
 
 
@@ -31,6 +30,9 @@ class CrimeRepository private constructor(context: Context, private val coroutin
          coroutineScope.launch {
              database.crimeDao().updateCrime(crime)
          }
+    }
+    suspend fun addCrime(crime: Crime){
+        database.crimeDao().addCrime(crime)
     }
     companion object {
         private var INSTANCE: CrimeRepository? = null

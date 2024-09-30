@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.CoroutinesRoom
 import androidx.room.Room
 import com.bignerdranch.android.criminalintent.database.CrimeDatabase
+import com.bignerdranch.android.criminalintent.database.migration_1_2
+import com.bignerdranch.android.criminalintent.database.migration_2_3
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import java.lang.IllegalStateException
@@ -11,7 +13,7 @@ import java.util.UUID
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-
+//data operations
 private const val DATABASE_NAME = "crime-database"
 class CrimeRepository private constructor(context: Context, private val coroutineScope: CoroutineScope = GlobalScope) {
    private val database: CrimeDatabase = Room
@@ -20,6 +22,7 @@ class CrimeRepository private constructor(context: Context, private val coroutin
             CrimeDatabase::class.java,
             DATABASE_NAME
         )
+       .addMigrations(migration_1_2, migration_2_3)
         .build()
 
 
@@ -44,7 +47,7 @@ class CrimeRepository private constructor(context: Context, private val coroutin
         }
 
         fun get(): CrimeRepository {
-            return INSTANCE ?: throw IllegalStateException("CrimeRepository must be intialized")
+            return INSTANCE ?: throw IllegalStateException("CrimeRepository must be initialized")
         }
     }
 }

@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 
+//manages UI-related data, fetch and update crime data
+
 class CrimeDetailViewModel(crimeId:UUID): ViewModel() {
     private val crimeRepository = CrimeRepository.get()
 

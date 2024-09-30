@@ -1,5 +1,6 @@
 package com.bignerdranch.android.criminalintent
 
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.criminalintent.databinding.ListItemCrimeBinding
 import java.util.UUID
 
+//displays list of crimes
+
 class CrimeHolder(
     private val binding: ListItemCrimeBinding
 ) : RecyclerView.ViewHolder(binding.root){
     fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit){
         binding.crimeTitle.text = crime.title
-        binding.crimeDate.text = crime.date.toString()
+        //binding.crimeDate.text = crime.date.toString()
+
+        val newDate = DateFormat.format("MMM dd, yyyy", crime.date) //Challenge from ch.11
+        binding.crimeDate.text = newDate  // Set the formatted date
 
         binding.root.setOnClickListener{
             Toast.makeText(

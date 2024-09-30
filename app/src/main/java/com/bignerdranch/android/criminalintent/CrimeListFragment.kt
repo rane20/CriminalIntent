@@ -20,6 +20,8 @@ import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.UUID
 
+//collects data and provides navigation
+
 class CrimeListFragment : Fragment() {
     private var _binding: FragmentCrimeListBinding? = null
     private val binding
@@ -36,10 +38,8 @@ class CrimeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up the RecyclerView
         binding.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        // Collect the flow of crimes
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 crimeListViewModel.crimes.collect { crimes ->

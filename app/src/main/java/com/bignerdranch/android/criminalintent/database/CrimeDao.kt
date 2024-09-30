@@ -8,7 +8,7 @@ import com.bignerdranch.android.criminalintent.Crime
 import java.util.UUID
 import kotlinx.coroutines.flow.Flow
 
-
+//accesses and manipulates crime objects in room database
 
 @Dao
 interface CrimeDao {

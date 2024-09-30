@@ -9,17 +9,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+//data handling
+
 private const val TAG = "CrimeListViewModel"
 
 class CrimeListViewModel : ViewModel() {
     private val crimeRepository = CrimeRepository.get()
 
-    // StateFlow to hold the list of crimes
     private val _crimes: MutableStateFlow<List<Crime>> = MutableStateFlow(emptyList())
     val crimes: StateFlow<List<Crime>> get() = _crimes.asStateFlow()
 
     init {
-        // Collect crimes from the repository and update _crimes
         viewModelScope.launch {
             crimeRepository.getCrimes().collect { crimeList ->
                 _crimes.value = crimeList
